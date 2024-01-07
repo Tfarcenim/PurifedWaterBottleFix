@@ -44,19 +44,23 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-            arg '-torg.spongepowered.asm.launch.MixinTweaker'
+      //      arg '-torg.spongepowered.asm.launch.MixinTweaker'
         }
 
         server {
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-            arg '-torg.spongepowered.asm.launch.MixinTweaker'
+       //     arg '-torg.spongepowered.asm.launch.MixinTweaker'
         }
     }
 }
 
 repositories {
     maven { url = 'https://repo.spongepowered.org/maven' }
+
+    maven {
+        url "https://cursemaven.com"
+    }
 }
 
 configurations {
@@ -67,12 +71,16 @@ configurations {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    implementation('org.spongepowered:mixin:0.8.3-SNAPSHOT') {
+  /*  implementation('org.spongepowered:mixin:0.8.3-SNAPSHOT') {
         exclude module: 'guava'
         exclude module: 'commons-io'
         exclude module: 'gson'
     }
-    annotationProcessor 'org.spongepowered:mixin:0.8.3:processor'
+    annotationProcessor 'org.spongepowered:mixin:0.8.3:processor'*/
+
+    implementation fg.deobf("curse.maven:tough-as-nails-246391:2710969")
+    implementation fg.deobf("curse.maven:mekanism-268560:2835175")
+
 }
 
 processResources {
@@ -105,11 +113,11 @@ jar {
         exclude "LICENSE.txt", "META-INF/MANIFSET.MF", "META-INF/maven/**", "META-INF/*.RSA", "META-INF/*.SF"
     }
 
-    manifest {
-        attributes "ForceLoadAsMod": "true"
-        attributes "TweakClass": "org.spongepowered.asm.launch.MixinTweaker"
-        attributes "TweakOrder": "0"
-    }
+   // manifest {
+   //     attributes "ForceLoadAsMod": "true"
+   //     attributes "TweakClass": "org.spongepowered.asm.launch.MixinTweaker"
+   //     attributes "TweakOrder": "0"
+   // }
 }
 
 jar.finalizedBy('reobfJar')
