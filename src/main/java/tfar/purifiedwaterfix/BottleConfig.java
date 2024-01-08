@@ -1,8 +1,8 @@
-package tfar.purifiedwaterbottlefix;
+package tfar.purifiedwaterfix;
 
 import net.minecraftforge.common.config.Config;
 
-@Config(modid = PurifiedWaterBottleFix.MOD_ID)
+@Config(modid = PurifiedWaterFix.MOD_ID)
 public class BottleConfig {
 
     @Config.RangeInt(min = 1)

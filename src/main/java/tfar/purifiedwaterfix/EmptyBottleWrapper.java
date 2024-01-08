@@ -1,15 +1,16 @@
-package tfar.purifiedwaterbottlefix;
+package tfar.purifiedwaterfix;
 
 import net.minecraft.init.Items;
+import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionType;
+import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.FluidTankProperties;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
@@ -18,11 +19,11 @@ import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class FilledFluidBottleWrapper implements IFluidHandlerItem, ICapabilityProvider {
+public class EmptyBottleWrapper implements IFluidHandlerItem, ICapabilityProvider {
     @Nonnull
     protected ItemStack container;
 
-    public FilledFluidBottleWrapper(@Nonnull ItemStack container) {
+    public EmptyBottleWrapper(@Nonnull ItemStack container) {
         this.container = container;
     }
 
@@ -34,71 +35,49 @@ public class FilledFluidBottleWrapper implements IFluidHandlerItem, ICapabilityP
 
     @Nullable
     public FluidStack getFluid() {
-        Item item = container.getItem();
-        if (item.getRegistryName().equals(PurifiedWaterBottleFix.PURIFIED_WATER)) {
-            return FluidRegistry.getFluidStack("purified_water", BottleConfig.capacity);
-        }
         return null;
     }
 
-    /**
-     * @deprecated use the NBT-sensitive version {@link #setFluid(FluidStack)}
-     */
-    @Deprecated
-    protected void setFluid(@Nullable Fluid fluid) {
-        setFluid(new FluidStack(fluid, BottleConfig.capacity));
-    }
+    private static final Item PURIFIED_WATER = Item.REGISTRY.getObject(PurifiedWaterFix.PURIFIED_WATER);
 
     protected void setFluid(@Nullable FluidStack fluidStack) {
         if (fluidStack == null)
             container = new ItemStack(Items.GLASS_BOTTLE);
-        else
-            container = FluidUtil.getFilledBucket(fluidStack);
+
+        else if (fluidStack.getFluid() == FluidRegistry.WATER) {
+            container = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER);
+        }else if (fluidStack.getFluid().getName().equals("purified_water")) {
+            container = new ItemStack(PURIFIED_WATER);
+        }
     }
 
     @Override
     public IFluidTankProperties[] getTankProperties() {
-        return new FluidTankProperties[]{new FluidTankProperties(getFluid(), Fluid.BUCKET_VOLUME)};
+        return new FluidTankProperties[]{new FluidTankProperties(getFluid(), BottleConfig.capacity)};
     }
 
     @Override
     public int fill(FluidStack resource, boolean doFill) {
-        return 0;//can't fill an already filled bottle
+        if (container.getCount() != 1 || resource == null || resource.amount < BottleConfig.capacity) {
+            return 0;
+        }
+
+        if (doFill) {
+            setFluid(resource);
+        }
+        return BottleConfig.capacity;
     }
 
+    //can't drain empty bottle
     @Nullable
     @Override
     public FluidStack drain(FluidStack resource, boolean doDrain) {
-        if (container.getCount() != 1 || resource == null || resource.amount < BottleConfig.capacity) {
-            return null;
-        }
-
-        FluidStack fluidStack = getFluid();
-        if (fluidStack != null && fluidStack.isFluidEqual(resource)) {
-            if (doDrain) {
-                setFluid((FluidStack) null);
-            }
-            return fluidStack;
-        }
-
         return null;
     }
 
     @Nullable
     @Override
     public FluidStack drain(int maxDrain, boolean doDrain) {
-        if (container.getCount() != 1 || maxDrain < BottleConfig.capacity) {
-            return null;
-        }
-
-        FluidStack fluidStack = getFluid();
-        if (fluidStack != null) {
-            if (doDrain) {
-                setFluid((FluidStack) null);
-            }
-            return fluidStack;
-        }
-
         return null;
     }
 
