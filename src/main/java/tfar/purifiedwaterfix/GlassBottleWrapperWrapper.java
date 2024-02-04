@@ -12,7 +12,7 @@ public class GlassBottleWrapperWrapper extends GlassBottleHandler.GlassBottleWra
     private static final Item PURIFIED_WATER = Item.REGISTRY.getObject(Constants.PURIFIED_WATER_TAN);
 
     public GlassBottleWrapperWrapper(@Nonnull ItemStack container) {
-        super(container);
+        super(container); // GlassBottleWrapper forces a capacity of 250mB per bottle, but luckily that's what we wanted anyway
     }
 
     @Override
