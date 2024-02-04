@@ -43,7 +43,7 @@ public class PurifiedWaterFix {
             event.addCapability(CANTEEN_WRAPPER, new CanteenWrapper(stack));
             
         } else if (stack.getItem() == Items.GLASS_BOTTLE) {
-            event.addCapability(GLASS_BOTTLE, new EmptyBottleWrapper(stack));
+            event.addCapability(GLASS_BOTTLE, new GlassBottleWrapperWrapper(stack));
         }
     }
 }
