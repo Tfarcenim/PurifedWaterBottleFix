@@ -1,5 +1,4 @@
-[
-{
+[{
   "modid": "${mod_id}",
   "name": "${mod_name}",
   "description": "${mod_description}",
@@ -7,10 +6,11 @@
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ${mod_author},
+  "authorList": "${mod_author}",
   "credits": "",
   "logoFile": "",
   "screenshots": [],
-  "dependencies": []
-}
-]
+  "useDependencyInformation": true,
+  "requirements": ["cuisine", "toughasnails"],
+  "dependencies": ["cuisine", "toughasnails"]
+}]

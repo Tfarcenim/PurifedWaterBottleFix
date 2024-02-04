@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod(modid = Constants.MOD_ID)
+@Mod(modid = Constants.MOD_ID, useMetadata = true)
 @Mod.EventBusSubscriber
 public class PurifiedWaterFix {
 
