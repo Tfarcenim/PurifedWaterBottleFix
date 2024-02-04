@@ -37,7 +37,7 @@ public class PurifiedWaterFix {
         ItemStack stack = event.getObject();
         ResourceLocation registryName = stack.getItem().getRegistryName();
         if (PURIFIED_WATER_TAN.equals(registryName)) {
-            event.addCapability(PURIFIED_WATER_WRAPPER, new FilledFluidBottleWrapper(stack));
+            event.addCapability(PURIFIED_WATER_WRAPPER, new PurifiedWaterBottleWrapper(stack));
             
         } else if (CANTEEN_TAN.equals(registryName)) {
             event.addCapability(CANTEEN_WRAPPER, new CanteenWrapper(stack));
