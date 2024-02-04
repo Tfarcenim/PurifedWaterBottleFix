@@ -80,6 +80,9 @@ dependencies {
 
     implementation fg.deobf("curse.maven:tough-as-nails-246391:2710969")
     implementation fg.deobf("curse.maven:mekanism-268560:2835175")
+	implementation fg.deobf("curse.maven:ceramics-250617:3158763")
+	implementation fg.deobf("curse.maven:crossroads-250231:2836509")
+    implementation fg.deobf("curse.maven:cuisine-303694:2932722")
 
 }
 
