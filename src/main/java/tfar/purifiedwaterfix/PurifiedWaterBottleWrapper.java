@@ -15,7 +15,7 @@ public class PurifiedWaterBottleWrapper extends FluidHandlerItemStackSimple {
 
     @Nullable
     public FluidStack getFluid() {
-        return FluidRegistry.getFluidStack(PurifiedWaterFix.PURIFIED_WATER, this.capacity);
+        return FluidRegistry.getFluidStack(Constants.PURIFIED_WATER, this.capacity);
     }
 
     protected void setFluid(FluidStack fluid) {
@@ -27,7 +27,7 @@ public class PurifiedWaterBottleWrapper extends FluidHandlerItemStackSimple {
     }
 
     public boolean canDrainFluidType(FluidStack fluid) {
-        return fluid.getFluid() == FluidRegistry.getFluid(PurifiedWaterFix.PURIFIED_WATER);
+        return fluid.getFluid() == FluidRegistry.getFluid(Constants.PURIFIED_WATER);
     }
     
     protected void setContainerToEmpty() {

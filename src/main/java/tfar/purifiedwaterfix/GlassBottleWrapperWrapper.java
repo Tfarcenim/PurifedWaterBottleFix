@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 
 public class GlassBottleWrapperWrapper extends GlassBottleHandler.GlassBottleWrapper {
     
-    private static final Item PURIFIED_WATER = Item.REGISTRY.getObject(PurifiedWaterFix.PURIFIED_WATER_TAN);
+    private static final Item PURIFIED_WATER = Item.REGISTRY.getObject(Constants.PURIFIED_WATER_TAN);
 
     public GlassBottleWrapperWrapper(@Nonnull ItemStack container) {
         super(container);
@@ -17,13 +17,13 @@ public class GlassBottleWrapperWrapper extends GlassBottleHandler.GlassBottleWra
 
     @Override
     public boolean canFillFluidType(FluidStack fluid) {
-        return fluid.getFluid().getName().equals(PurifiedWaterFix.PURIFIED_WATER) || super.canFillFluidType(fluid);
+        return fluid.getFluid().getName().equals(Constants.PURIFIED_WATER) || super.canFillFluidType(fluid);
     }
 
     @Override
     protected void setFluid(FluidStack fluid)
     {
-        if (fluid.getFluid().getName().equals(PurifiedWaterFix.PURIFIED_WATER)) {
+        if (fluid.getFluid().getName().equals(Constants.PURIFIED_WATER)) {
             container = new ItemStack(PURIFIED_WATER);
         } else {
             super.setFluid(fluid);
